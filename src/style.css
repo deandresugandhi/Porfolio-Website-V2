@@ -1,0 +1,257 @@
+* {
+    font-family: "futura-pt", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body, main  {
+    min-height: 100vh;
+    width: 100%;
+    color-scheme: dark;
+}
+
+main {
+    padding-top: calc(60px + 8vh);
+    padding-bottom: 5vh;
+    z-index: 1;
+}
+
+body {
+    background-color: #181818;
+}
+
+section {
+    padding-left: 12vw;
+    padding-right: 12vw;
+}
+
+article {
+    color: #acacac;
+    max-width: 850px;
+}
+
+/* Headings & font styling */
+h1, h2, h3 {
+    color: #cccccc;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 4.5rem;
+    line-height: .9;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+
+h3 {
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+p {
+    color: #acacac;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+a {
+    text-decoration: none;
+}
+
+strong {
+    font-weight: 700;
+    color: #E3963E;
+}
+
+/* Navigation Bar */
+nav {
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 25px;
+    width: 100%;
+}
+
+.navblock {
+    width: 100px;
+    height: 56px;
+    border-bottom: 2px solid #e3963eb2;
+    font-size: 10px;
+    background-color: #2e2e2ed5;
+    backdrop-filter: blur(5px);
+    color: #cccccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 80px;
+}
+
+.navblock a {
+    letter-spacing: 1.5px;
+    border-top: 1px solid #e3963e00;
+    border-bottom: 1px solid #e3963e00;
+    color: inherit;
+    text-decoration: none;
+    transition: .5s;
+    display: flex;
+    justify-content: center;
+}
+
+/* Desktop Navigation Bar */
+.mainmenu a {
+    position: relative;
+    display: none;
+}
+
+.mainmenu a:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    border-bottom: 1px solid #E3963E;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+  }
+
+.mainmenu a:hover:before {
+    visibility: visible;
+    transform: scaleX(1)
+}
+
+.mainmenu a:hover {
+    letter-spacing: 3px;
+    color:#ffffff
+}
+
+/* Mobile Navigation Bar */
+.mobilemenu {
+    z-index: 2;
+    width: 100%;
+    height: 100vh;
+    padding-top: 20vh;
+    font-size: 2.5rem;
+    top: -100vh;
+    opacity: 0%;
+    background-color: #3a3a3a;
+    color: #cccccc;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: ease-in-out 0.5s;
+}
+
+.mobilemenu a {
+    font-weight: 800;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    color: #cccccc;
+    transition: .3s
+}
+
+.mobilemenu.active {
+    top: 0px;
+    opacity: 100%;
+}
+
+.mobilemenu a:hover {
+    letter-spacing: 2px;
+    color:#E3963E;
+}
+
+.hamburgericon, .closeicon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    filter: brightness(0) invert(1);
+    transition: opacity .4s;
+}
+
+.closeicon {
+    opacity: 0;
+    transform-origin: center center;
+    transform: translate(-50%, -50%) scale(0.4)
+}
+
+.hamburger.active .hamburgericon {
+    opacity: 0;
+}
+
+.hamburger.active .closeicon {
+    opacity: .7;
+}
+
+.navblock:hover {
+    cursor: pointer;
+}
+
+.navblock.active {
+    border-bottom: 0px solid #e3963eb2;
+}
+
+nav.active {
+    top: 27px;
+}
+
+/* Navigation Bar Styling for Large Tablet & Bigger Devices */
+@media only screen and (min-width: 850px) {
+    main {
+        padding-top: calc(90px + 8vh);
+    }
+    .navblock {
+        width: 60vw;
+        max-width: 600px;
+    }
+    .navblock:hover {
+        cursor: default;
+    }
+    .navblock.active {
+        border-bottom: 2px solid #e3963eb2;
+    }
+    nav.active {
+        top: 25px;
+    }
+    .mobilemenu {
+        display: none;
+    }
+    .hamburger{
+        display: none;
+    }
+    .mainmenu a {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin-right: 18px;
+        margin-left: 18px;
+        display: block;
+    }
+}
+
+/* 2k resolution font resize*/
+@media only screen and (min-width: 2500px) {
+    h1 {
+        font-size: 6.5rem;
+    }
+    h2 {
+        font-size: 2.2rem;
+    }
+    h3 {
+        font-size: 1.5rem;
+    }
+    p {
+        font-size: 1.5rem;
+    }
+}

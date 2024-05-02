@@ -1,0 +1,113 @@
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+article {
+    width: 100%;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+}
+
+/* Section colouring */
+section:nth-of-type(2) {
+    background-color: #252525;
+}
+
+/* Headings and font styling adjustments */
+h1 {
+    text-align: center;
+    margin-bottom: 3vh;
+}
+
+h2 {
+    margin-bottom: 15px;
+}
+
+/* Background article styling */
+.background {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0;
+}
+
+.background * {
+    text-align: center;
+}
+
+/* Logo components styling */
+.logos {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.images p {
+    font-size: .8rem;
+}
+
+.images img {
+    height: 15vw;
+    max-height: calc(25 / 100 * 850px)
+}
+
+.programming, .webtools {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 50%;
+}
+
+.webtools {
+    justify-content: flex-end;
+}
+
+.programming h2, .webtools h2 {
+    writing-mode: vertical-lr;
+    text-align: right;
+    rotate: 180deg;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    color:#a7a7a7;
+    font-weight: 600;
+}
+
+.images {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-left: 2px solid #E3963E;
+    padding-left: 15px;
+}
+
+/* Image of Deandre styling */
+#deandre {
+    width: 50vw;
+    max-width: 650px;
+    border-radius: 10%;
+}
+
+/* Skills article styling */
+.skills * {
+    text-align: left;
+}
+
+/* Hobbies article styling */
+.hobbies * {
+    text-align: right;
+}
+
+/* Logo components size adjustment on tablet and bigger screens */
+@media only screen and (min-width: 700px) {
+    .images img {
+        height: 25vw
+    }
+    .images p {
+        font-size: 1.4rem;
+    }
+}
