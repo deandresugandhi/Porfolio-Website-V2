@@ -10,15 +10,29 @@
     <link rel="stylesheet" href="./index.css" />
     <!-- Font family source -->
     <link rel="stylesheet" href="https://use.typekit.net/oyz3zmv.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <!-- JS file for hamburger nav -->
     <script async defer src="./navigationscript.js"></script>
+    <!-- CDN + js for three js test -->
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.167.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.0/examples/jsm/"
+          }
+        }
+    </script>
+    <script type="module" src="./threejs-particles.js"></script>
+    <script src="https://kit.fontawesome.com/3948f18200.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <!-- <div id="particles-js"></div> -->
+    <div id="particles-threejs"></div>
     <!-- Navigation bar -->
     <nav class="mainmenu">
         <div class = "navblock">
             <a href="./index.html">HOME</a>
-            <a href="./experiences.html">EXPERIENCES</a>
+            <a href="./experiences.html">PROJECTS</a>
             <a href="./about.html">ABOUT</a>
             <a href="./contact.html">CONTACT</a>
             <div class="hamburger">
@@ -35,24 +49,179 @@
     </nav>
     <!-- Main content -->
     <main>
-        <section>
+        <!-- Homepage Section -->
+        <section id="homepage">
             <!-- Homepage main title component -->
             <header>
-                <h2>Hi, my name is</h2>
-                <h1><strong>Deandre</strong> Sugandhi</h1>
-                <h2><strong>Web developer.</strong></h2>
+                <h2>WEB DEVELOPER</h2>
+                <h1>Deandre Sugandhi</h1>
             </header>
             <article>
                 <!-- Homepage introduction caption component -->
-                <div class="vertical">
+                <h3>I build pixel-perfect and accessible digital experiences.</h3>
+
+            </article>
+            <div class="arrow-container">
+                <div class="arrow"></div>
+                <span>ABOUT</span>
+            </div>
+        </section>
+        <section id="about">
+            <div id="about-header">
+                <h1 class="section-header">Hey There!</h1>
+                <!-- Image of Deandre -->
+                <img id="deandre" src="./assets/PIC 1-6.jpg" alt="Photo of Deandre">
+            </div>
+            <article id="about-content">
+                <!-- Background article component -->
+                <div id="bio">
+                    <h2>About</h2>
                     <p>
-                        Your friendly neighborhood full-stack developer based in
-                        Sydney, Australia.
+                        I am <strong>Deandre Sugandhi</strong>, an aspiring full-stack web developer based in Sydney, Australia.
+                        I discovered programming when I was looking for ways to automate repetitive tasks that I do as a hobbyist musician, a process which immediately intrigued me.
+                        Since then, this newfound interest has led me to pursue and complete my IT degree in 2024.
+                    </p>
+                    <p>
+                        When I'm not coding, my time is filled with movies, video games, books, and music. To me, stumbling across an unexpectedly well-crafted story is the definition of catharsis, no matter the media. Close the day off with an evening swim, and I've got myself the perfect day. Additionally, I am also developing a music and video production service with a fellow creative, taking gigs when opportunity arises.
                     </p>
                 </div>
-                <!-- "Find out more" link component -->
-                <a href="./about.html"><h2>find out more</h2></a>
+                <div id="skills">
+                    <h2>Skills</h2>
+                    <h3>Programming Tools</h3>
+                    <a href="#"><i class="fa-brands fa-html5" style="color: #c15a2f; margin-right: 3px;" aria-hidden="true"></i> <span>HTML</span></a>
+                    <a href="#"><i class="fa-brands fa-css3-alt" style="color: #4066e3; margin-right: 3px;" aria-hidden="true"></i> <span>CSS</span></a>
+                    <a href="#"><i class="fa-brands fa-js" style="color: #e3d361; margin-right: 3px;" aria-hidden="true"></i> <span>JavaScript</span></a>
+                    <a href="#"><i class="fa-brands fa-python" style="color: #0d6294; margin-right: 3px;" aria-hidden="true"></i> <span>Python</span></a>
+                    <a href="#"><i class="fa-brands fa-node" style="color: #83cc48; margin-right: 3px;" aria-hidden="true"></i> <span>Node</span></a>
+                    <a href="#"><i class="fa-brands fa-sass" style="color: #b9749a; margin-right: 3px;" aria-hidden="true"></i> <span>SASS</span></a>
+                    <a href="#"><i class="fa-solid fa-database" style="color: #54752c; margin-right: 3px;" aria-hidden="true"></i> <span>MongoDB</span></a>
+                    <a href="#"><i class="fa-solid fa-database" style="color: #0f5686; margin-right: 3px;" aria-hidden="true"></i> <span>PostgreSQL</span></a>
+                    <a href="#"><i class="fa-brands fa-react" style="color: #8dd0f0; margin-right: 3px;" aria-hidden="true"></i> <span>React</span></a>
+                    <a href="#" class="icon"><image src="assets/express.png" style="width: 20px;" aria-hidden="true"></i> <span>Express</span></a>
+                    <a href="#" class="icon"><image src="assets/flask.png" style="width: 20px;" aria-hidden="true"></i> <span>Flask</span></a>
+                    <a href="#"><i class="fa-brands fa-git" style="color: #cb5f3a; margin-right: 3px;" aria-hidden="true"></i> <span>Git</span></a>
+                    <h3>Other Tools</h3>
+                    <a href="#" class="icon"><image src="assets/illustrator.png" style="width: 20px;" aria-hidden="true"></i> <span>Illustrator</span></a>
+                    <a href="#" class="icon"><image src="assets/premiere-pro.png" style="width: 20px;" aria-hidden="true"></i> <span>Premiere</span></a>
+                    <a href="#" class="icon"><image src="assets/after-effects.png" style="width: 20px;" aria-hidden="true"></i> <span>After Effects</span></a>
+                    <a href="#" class="icon"><image src="assets/photoshop.png" style="width: 20px;" aria-hidden="true"></i> <span>Photoshop</span></a>
+                    <a href="#"><i class="fa-solid fa-file-word" style="color: #045f9c; margin-right: 3px;" aria-hidden="true"></i> <span>Word</span></a>
+                    <a href="#"><i class="fa-solid fa-file-excel" style="color: #578d15; margin-right: 3px;" aria-hidden="true"></i> <span>Excel</span></a>
+                    
+                </div>
             </article>
+        </section>
+        <section id="projects">
+            <h1>Projects</h1>
+            <!-- Project 1 -->
+            <article>
+                <img src="./assets/project1.png">
+            </article>
+            <article id="project">
+                <div class="desc">
+                    <h2>Portfolio Website</h2>
+                    <a href= "https://deandresugandhi.dev/" target="_blank" rel="noopener noreferrer"><h3>Link to project</h3></a>
+                    <a href= "https://github.com/deandresugandhi/Portfolio-Website" target="_blank" rel="noopener noreferrer"><h3>Link to Github</h3></a>
+                </div>
+                <div class="spacing"></div>
+                <div class="details">
+                    <p>
+                        Portfolio website made for personal use, to showcase personality, experience, 
+                        and work as an IT professional. Website is made using html, css, and JavaScript.
+                    </p>
+                </div>
+            </article>
+            <!-- Project 2 -->
+            <article>
+                <img src="./assets/connectfour.png">
+            </article>
+            <article id="project">
+                <div class="desc">
+                    <h2>Terminal Connect Four</h2>
+                    <a href= "https://github.com/deandresugandhi/DeandreSugandhi_T1A3" target="_blank" rel="noopener noreferrer"><h3>Link to project</h3></a>
+                    <a href= "https://github.com/deandresugandhi/DeandreSugandhi_T1A3" target="_blank" rel="noopener noreferrer"><h3>Link to Github</h3></a>
+                </div>
+                <div class="spacing"></div>
+                <div class="details">
+                    <p>
+                        Terminal app to play Connect Four, created as part of assignment in Coder Academy. Allows two players 
+                        to engage in PvP Connect Four matches. Include features like user account system, game history, customization,
+                        and game lobbies. Made exclusively in Python.
+                    </p>
+                </div>
+            </article>
+            <!-- Project 3 -->
+            <article>
+                <img src="./assets/chordtranslator.png">
+            </article>
+            <article id="project">
+                <div class="desc">
+                    <h2>Chord Translator</h2>
+                    <a href= "https://github.com/deandresugandhi/Chord-Translator" target="_blank" rel="noopener noreferrer"><h3>Link to project</h3></a>
+                    <a href= "https://github.com/deandresugandhi/Chord-Translator" target="_blank" rel="noopener noreferrer"><h3>Link to Github</h3></a>
+                </div>
+                <div class="spacing"></div>
+                <div class="details">
+                    <p>
+                        Desktop application to translate, in the form of a Word document, chord progressions 
+                        written in the Nashville Number System into traditional chord notation and vice versa.
+                    </p>
+                </div>
+            </article>
+            <!-- Project 4 -->
+            <article>
+                <img src="./assets/docwait.png">
+            </article>
+            <article id="project">
+                <div class="desc">
+                    <h2>Doc Wait</h2>
+                    <a href= "https://docwait.netlify.app/admin" target="_blank" rel="noopener noreferrer"><h3>Link to project</h3></a>
+                    <a href= "https://github.com/deandresugandhi/DocWait" target="_blank" rel="noopener noreferrer"><h3>Link to Github</h3></a>
+                </div>
+                <div class="spacing"></div>
+                <div class="details">
+                    <p>
+                        A MERN stack single page application created within a team of three students as part of assignment in Coder Academy. Functions as 
+                        a patient queue monitoring app designed specifically for walk-in general practitioners.
+                    </p>
+                </div>
+            </article>
+        </section>
+        <section id="footer">
+            <div class="contact-form">
+                <div class="test">
+                    <h2>Say Hello!</h2>
+                    <form action="https://example.com/submit" method="post">
+                        <div class="form-group">
+                            <input type="text" id="name" name="first-name" required placeholder="First Name">
+                            <input type="text" id="name" name="last-name" required placeholder="Last Name">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" required placeholder="Email">
+                            <input type="email" id="email" name="email" required placeholder="Phone">
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="5" required placeholder="Message"></textarea>
+                        </div>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+                <div class="test">
+                    <h2>Contact Information</h2>
+                    <p> test</p>
+                    <p> test</p>
+                    <p> test</p>
+                    <p> test</p>
+                    <ul id="socials">
+                        <li><a href="https://www.facebook.com/deandre.sugandhi/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a href="https://github.com/deandresugandhi" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i></a></li>
+                        <li><a href="https://www.linkedin.com/in/deandre-sugandhi-9417a91b0/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a></li>
+                        <li><a href="https://www.instagram.com/deandresugandhi/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a></li>
+                        <li><a href="mailto:deandre_21@hotmail.com" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <p>© Deandre Sugandhi 2024</p>
         </section>
     </main>
 </body>

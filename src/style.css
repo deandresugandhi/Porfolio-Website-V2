@@ -1,5 +1,6 @@
 * {
-    font-family: "futura-pt", sans-serif;
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
     box-sizing: border-box;
@@ -9,23 +10,32 @@
 
 html, body, main  {
     min-height: 100vh;
-    width: 100%;
+    width: 100vw;
     color-scheme: dark;
 }
 
 main {
-    padding-top: calc(60px + 8vh);
     padding-bottom: 5vh;
     z-index: 1;
 }
 
 body {
-    background-color: #181818;
+    background-color: #c54b2c;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* Canvas behind other elements */
 }
 
 section {
     padding-left: 12vw;
     padding-right: 12vw;
+    width: 100vw;
 }
 
 article {
@@ -34,9 +44,6 @@ article {
 }
 
 /* Headings & font styling */
-h1, h2, h3 {
-    color: #cccccc;
-}
 
 h1 {
     font-weight: 700;
@@ -56,7 +63,7 @@ h3 {
 }
 
 p {
-    color: #acacac;
+    color: #dbdbdb;
     font-size: 1.2rem;
     line-height: 1.5;
     margin-bottom: 20px;
@@ -64,11 +71,12 @@ p {
 
 a {
     text-decoration: none;
+    color: #dbdbdb;
 }
 
 strong {
-    font-weight: 700;
-    color: #E3963E;
+    font-weight: 800;
+    color: #eb5701;
 }
 
 /* Navigation Bar */
@@ -84,7 +92,6 @@ nav {
 .navblock {
     width: 100px;
     height: 56px;
-    border-bottom: 2px solid #e3963eb2;
     font-size: 10px;
     background-color: #2e2e2ed5;
     backdrop-filter: blur(5px);
@@ -118,7 +125,6 @@ nav {
     width: 100%;
     bottom: 0;
     left: 0;
-    border-bottom: 1px solid #E3963E;
     visibility: hidden;
     transform: scaleX(0);
     transition: all 0.3s ease-in-out;
@@ -200,8 +206,8 @@ nav {
 }
 
 .navblock.active {
-    border-bottom: 0px solid #e3963eb2;
-}
+
+}    border-bottom: 0px solid #e3963eb2;
 
 nav.active {
     top: 27px;
@@ -209,9 +215,6 @@ nav.active {
 
 /* Navigation Bar Styling for Large Tablet & Bigger Devices */
 @media only screen and (min-width: 850px) {
-    main {
-        padding-top: calc(90px + 8vh);
-    }
     .navblock {
         width: 60vw;
         max-width: 600px;
