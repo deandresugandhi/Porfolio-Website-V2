@@ -8,6 +8,7 @@ import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js'
 
 document.addEventListener('DOMContentLoaded', () => {
     // Basic setup
+    const isMobile = window.innerWidth <= 800;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -91,43 +92,55 @@ document.addEventListener('DOMContentLoaded', () => {
     const composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(scene, camera));
     
-    const bloomPass = new UnrealBloomPass(
-        new THREE.Vector2(window.innerWidth, window.innerHeight),
-        0.5, // Bloom strength
-        1, // Bloom radius
-        0.8 // Bloom threshold
-    );
-    composer.addPass(bloomPass);
+    if (!isMobile) {
+        const bloomPass = new UnrealBloomPass(
+            new THREE.Vector2(window.innerWidth, window.innerHeight),
+            0.5, // Bloom strength
+            1, // Bloom radius
+            0.8 // Bloom threshold
+        );
+        composer.addPass(bloomPass);
 
-    const smaaPass = new SMAAPass(window.innerWidth * renderer.getPixelRatio(), window.innerHeight * renderer.getPixelRatio());
-    composer.addPass(smaaPass);
+        const smaaPass = new SMAAPass(window.innerWidth * renderer.getPixelRatio(), window.innerHeight * renderer.getPixelRatio());
+        composer.addPass(smaaPass);
+    }
     
     // Set camera position
     camera.position.set(20, 20, 100); // Center the camera view on the scene
     camera.lookAt(scene.position); // Make sure the camera is looking at the center of the scene
 
     // Animation loop
-    function animate() {
+    function animate(currentTime) {
         requestAnimationFrame(animate);
 
-        // Move particles
-        particles.children.forEach(particle => {
-            particle.position.add(particle.userData.velocity);
+        const deltaTime = currentTime - lastFrameTime;
+        
+        if (deltaTime > frameDuration) {
+            lastFrameTime = currentTime - (deltaTime % frameDuration);
 
-            // Rotate particles
-            particle.rotation.x += particle.userData.rotationSpeed.x;
-            particle.rotation.y += particle.userData.rotationSpeed.y;
-            particle.rotation.z += particle.userData.rotationSpeed.z;
+            // Move particles
+            particles.children.forEach(particle => {
+                particle.position.add(particle.userData.velocity);
 
-            // Bounce particles off walls
-            if (particle.position.x > 50 || particle.position.x < -50) particle.userData.velocity.x *= -1;
-            if (particle.position.y > 50 || particle.position.y < -50) particle.userData.velocity.y *= -1;
-            if (particle.position.z > 50 || particle.position.z < -50) particle.userData.velocity.z *= -1;
-        });
+                // Rotate particles
+                particle.rotation.x += particle.userData.rotationSpeed.x;
+                particle.rotation.y += particle.userData.rotationSpeed.y;
+                particle.rotation.z += particle.userData.rotationSpeed.z;
 
-        controls.update();
-        composer.render(); // Use composer for rendering
+                // Bounce particles off walls
+                if (particle.position.x > 50 || particle.position.x < -50) particle.userData.velocity.x *= -1;
+                if (particle.position.y > 50 || particle.position.y < -50) particle.userData.velocity.y *= -1;
+                if (particle.position.z > 50 || particle.position.z < -50) particle.userData.velocity.z *= -1;
+            });
+
+            controls.update();
+            composer.render(); // Use composer for rendering
+        }
     }
+
+    let lastFrameTime = 0;
+    const fps = isMobile ? 30 : 60; // Reduce FPS on mobile devices
+    const frameDuration = 1000 / fps; // Duration of one frame in milliseconds
 
     animate();
 

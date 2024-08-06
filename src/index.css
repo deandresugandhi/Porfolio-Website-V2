@@ -29,6 +29,7 @@ section {
 }
 
 #homepage {
+    position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -43,16 +44,18 @@ section {
 }
 
 #projects {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background-color: #141414;
     z-index: 1;
-    padding-top: 15vh;
+    padding-top: 10vh;
 }
 
 #about {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -93,14 +96,6 @@ header h2 {
     align-self: flex-end;
 }
 
-#about article {
-    font-size: 1.8rem;
-    color: white;
-    align-self: center;
-    padding-top: 30px;
-    margin-bottom: 10px;
-}
-
 header h2:first-of-type {
     align-self: flex-start;
     font-size: 1.6vw;
@@ -111,7 +106,10 @@ header h2:first-of-type {
 
 /* Arrow */
 .arrow-container {
-    position: absolute;
+    position: absolute; /* Position it absolutely within the parent container */
+    bottom: 0; /* Aligns it to the bottom of the parent container */
+    left: 50%; /* Center horizontally (if needed) */
+    transform: translateX(-50%); /* Adjust for centering */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -130,6 +128,16 @@ header h2:first-of-type {
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-top: 10px solid #cfcfcfc9;
+    position: relative;
+    animation: bounce 1.5s infinite;
+}
+
+.arrow-reverse {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #cfcfcfc9;
     position: relative;
     animation: bounce 1.5s infinite;
 }
@@ -289,6 +297,12 @@ section .arrow-container {
     flex-direction: row;
     align-items: flex-start;
     gap: 50px;
+    margin-bottom: 5000px;
+    font-size: 1.8rem;
+    color: white;
+    align-self: center;
+    padding-top: 30px;
+    margin-bottom: 8vh;
 }
 
 #skills {
@@ -338,6 +352,7 @@ section .arrow-container {
 }
 
 #contact {
+    position: relative;
     height: auto;
     min-height: auto;
     background-color: rgb(17, 17, 17);
@@ -366,6 +381,7 @@ section .arrow-container {
     flex-direction: row;
     justify-content: space-between;
     gap: 100px;
+    margin-bottom: 10vh;
 }
 
 .contact-form {
@@ -528,8 +544,7 @@ section .arrow-container {
     .contact-me {
         flex-direction: column;
         gap: 50px;
-        margin: 0;
-        width: 100%
+        width: 100%;
     }
 
     .contact-info {

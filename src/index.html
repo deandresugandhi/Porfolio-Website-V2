@@ -13,6 +13,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <!-- JS file for hamburger nav -->
     <script async defer src="./navigationscript.js"></script>
+    <!-- JS file for url reflecting scroll position -->
+    <script async defer src="./navigationscroll.js"></script>
+    <!-- JS file for message notification -->
+    <script async defer src="./messagenotificationscript.js"></script>
     <!-- CDN + js for three js -->
     <script type="importmap">
         {
@@ -32,10 +36,10 @@
     <!-- Navigation bar -->
     <nav class="mainmenu">
         <div class = "navblock">
-            <a href="./index.html">HOME</a>
-            <a href="./experiences.html">PROJECTS</a>
-            <a href="./about.html">ABOUT</a>
-            <a href="./contact.html">CONTACT</a>
+            <a href="#">HOME</a>
+            <a href="#projects">PROJECTS</a>
+            <a href="#about">ABOUT</a>
+            <a href="#contact">CONTACT</a>
             <div class="hamburger">
                 <img class="hamburgericon" src="./assets/hamburger-128.png">
                 <img class="closeicon" src="./assets/close-128.png">
@@ -43,10 +47,10 @@
         </div>
     </nav>
     <nav class="mobilemenu">
-        <a href="./index.html">HOME</a>
-        <a href="./experiences.html">EXPERIENCES</a>
-        <a href="./about.html">ABOUT</a>
-        <a href="./contact.html">CONTACT</a>
+        <a href="#">HOME</a>
+        <a href="#projects">PROJECTS</a>
+        <a href="#about">ABOUT</a>
+        <a href="#contact">CONTACT</a>
     </nav>
     <!-- Main content -->
     <div class="threejs-particle-container">
@@ -64,10 +68,10 @@
                 <!-- Homepage introduction caption component -->
                 <h3 id="homepage-subheading">I build pixel-perfect and accessible digital experiences.</h3>
             </article>
-            <div class="arrow-container">
+            <a href= "#projects" class="arrow-container">
                 <div class="arrow"></div>
                 <span>PROJECTS</span>
-            </div>
+            </a>
         </section>
         <section id="projects">
             <h1 class="section-header">Projects</h1>
@@ -131,7 +135,7 @@
             <div class="threejs-container">
                 <div id="threejs-background-4" class="threejs-background"></div>
             </div>
-            <article id="project">
+            <article id="project" style="margin-bottom: 15vh">
                 <div class="desc">
                     <h2>Doc Wait</h2>
                     <a href= "https://docwait.netlify.app/admin" target="_blank" rel="noopener noreferrer"><h3>Link to project</h3></a>
@@ -145,6 +149,10 @@
                     </p>
                 </div>
             </article>
+            <a href="#about" class="arrow-container">
+                <div class="arrow"></div>
+                <span>ABOUT</span>
+            </a>
         </section>
         <section id="about">
             <div id="about-header">
@@ -175,49 +183,52 @@
                 <div id="skills">
                     <h2>Skills</h2>
                     <h3>Programming Tools</h3>
-                    <a href="#"><i class="fa-brands fa-html5" style="color: #c15a2f; margin-right: 3px;" aria-hidden="true"></i> <span>HTML</span></a>
-                    <a href="#"><i class="fa-brands fa-css3-alt" style="color: #4066e3; margin-right: 3px;" aria-hidden="true"></i> <span>CSS</span></a>
-                    <a href="#"><i class="fa-brands fa-js" style="color: #e3d361; margin-right: 3px;" aria-hidden="true"></i> <span>JavaScript</span></a>
-                    <a href="#"><i class="fa-brands fa-python" style="color: #0d6294; margin-right: 3px;" aria-hidden="true"></i> <span>Python</span></a>
-                    <a href="#"><i class="fa-brands fa-node" style="color: #83cc48; margin-right: 3px;" aria-hidden="true"></i> <span>Node</span></a>
-                    <a href="#"><i class="fa-brands fa-sass" style="color: #b9749a; margin-right: 3px;" aria-hidden="true"></i> <span>SASS</span></a>
-                    <a href="#"><i class="fa-solid fa-database" style="color: #54752c; margin-right: 3px;" aria-hidden="true"></i> <span>MongoDB</span></a>
-                    <a href="#"><i class="fa-solid fa-database" style="color: #0f5686; margin-right: 3px;" aria-hidden="true"></i> <span>PostgreSQL</span></a>
-                    <a href="#"><i class="fa-brands fa-react" style="color: #8dd0f0; margin-right: 3px;" aria-hidden="true"></i> <span>React</span></a>
-                    <a href="#" class="icon"><image src="assets/express.png" style="width: 20px;" aria-hidden="true"></i> <span>Express</span></a>
-                    <a href="#" class="icon"><image src="assets/flask.png" style="width: 20px;" aria-hidden="true"></i> <span>Flask</span></a>
-                    <a href="#"><i class="fa-brands fa-git" style="color: #cb5f3a; margin-right: 3px;" aria-hidden="true"></i> <span>Git</span></a>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-html5" style="color: #c15a2f; margin-right: 3px;" aria-hidden="true"></i> <span>HTML</span></a>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-css3-alt" style="color: #4066e3; margin-right: 3px;" aria-hidden="true"></i> <span>CSS</span></a>
+                    <a href="https://www.javascript.com/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-js" style="color: #e3d361; margin-right: 3px;" aria-hidden="true"></i> <span>JavaScript</span></a>
+                    <a href="https://www.python.org/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-python" style="color: #0d6294; margin-right: 3px;" aria-hidden="true"></i> <span>Python</span></a>
+                    <a href="https://nodejs.org/en" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-node" style="color: #83cc48; margin-right: 3px;" aria-hidden="true"></i> <span>Node</span></a>
+                    <a href="https://sass-lang.com/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-sass" style="color: #b9749a; margin-right: 3px;" aria-hidden="true"></i> <span>SASS</span></a>
+                    <a href="https://www.mongodb.com/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-database" style="color: #54752c; margin-right: 3px;" aria-hidden="true"></i> <span>MongoDB</span></a>
+                    <a href="https://www.postgresql.org/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-database" style="color: #0f5686; margin-right: 3px;" aria-hidden="true"></i> <span>PostgreSQL</span></a>
+                    <a href="https://react.dev/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-react" style="color: #8dd0f0; margin-right: 3px;" aria-hidden="true"></i> <span>React</span></a>
+                    <a href="https://expressjs.com/" target="_blank" rel="noopener noreferrer" class="icon"><image src="assets/express.png" style="width: 20px;" aria-hidden="true"></i> <span>Express</span></a>
+                    <a href="https://flask.palletsprojects.com/en/3.0.x/" target="_blank" rel="noopener noreferrer" class="icon"><image src="assets/flask.png" style="width: 20px;" aria-hidden="true"></i> <span>Flask</span></a>
+                    <a href="https://git-scm.com/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-git" style="color: #cb5f3a; margin-right: 3px;" aria-hidden="true"></i> <span>Git</span></a>
                     <h3 style="margin-top: 20px">Other Tools</h3>
-                    <a href="#" class="icon"><image src="assets/illustrator.png" style="width: 20px;" aria-hidden="true"></i> <span>Illustrator</span></a>
-                    <a href="#" class="icon"><image src="assets/premiere-pro.png" style="width: 20px;" aria-hidden="true"></i> <span>Premiere</span></a>
-                    <a href="#" class="icon"><image src="assets/after-effects.png" style="width: 20px;" aria-hidden="true"></i> <span>After Effects</span></a>
-                    <a href="#" class="icon"><image src="assets/photoshop.png" style="width: 20px;" aria-hidden="true"></i> <span>Photoshop</span></a>
-                    <a href="#"><i class="fa-solid fa-file-word" style="color: #045f9c; margin-right: 3px;" aria-hidden="true"></i> <span>Word</span></a>
-                    <a href="#"><i class="fa-solid fa-file-excel" style="color: #578d15; margin-right: 3px;" aria-hidden="true"></i> <span>Excel</span></a>
-                    
+                    <a href="https://www.adobe.com/au/products/illustrator.html" target="_blank" rel="noopener noreferrer" class="icon"><image src="assets/illustrator.png" style="width: 20px;" aria-hidden="true"></i> <span>Illustrator</span></a>
+                    <a href="https://www.adobe.com/au/products/premiere.html" target="_blank" rel="noopener noreferrer" class="icon"><image src="assets/premiere-pro.png" style="width: 20px;" aria-hidden="true"></i> <span>Premiere</span></a>
+                    <a href="https://www.adobe.com/au/products/aftereffects.html" target="_blank" rel="noopener noreferrer" class="icon"><image src="assets/after-effects.png" style="width: 20px;" aria-hidden="true"></i> <span>After Effects</span></a>
+                    <a href="https://www.adobe.com/au/products/photoshop.html" target="_blank" rel="noopener noreferrer" class="icon"><image src="assets/photoshop.png" style="width: 20px;" aria-hidden="true"></i> <span>Photoshop</span></a>
+                    <a href="https://www.microsoft.com/en-au/microsoft-365/word" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-file-word" style="color: #045f9c; margin-right: 3px;" aria-hidden="true"></i> <span>Word</span></a>
+                    <a href="https://www.microsoft.com/en-au/microsoft-365/excel" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-file-excel" style="color: #578d15; margin-right: 3px;" aria-hidden="true"></i> <span>Excel</span></a>
                 </div>
             </article>
+            <a href="#contact" class="arrow-container">
+                <div class="arrow"></div>
+                <span>CONTACT</span>
+            </a>
         </section>
         <section id="contact">
             <h1 style="text-align: center">Get in Touch</h1>
             <div class="contact-me">
                 <div class="contact-form">
                     <h2>Say Hello!</h2>
-                    <form action="https://formspree.io/f/mqazqrjk" method="post">
+                    <form id="contact-form" action="https://formspree.io/f/mqazqrjk" method="post">
                         <div class="form-group">
                             <input type="text" id="name" name="first-name" required placeholder="First Name">
                             <input type="text" id="name" name="last-name" required placeholder="Last Name">
                         </div>
                         <div class="form-group">
                             <input type="email" id="email" name="email" required placeholder="Email">
-                            <input type="email" id="email" name="email" required placeholder="Phone">
+                            <input type="phone" id="phone" name="phone" required placeholder="Phone">
                         </div>
                         <div class="form-group">
                             <textarea id="message" name="message" rows="5" required placeholder="Message"></textarea>
                         </div>
                         <div id="send-message" class="form-group" style="margin-bottom: 0px;">
                             <button type="submit" style="color: black; font-weight: 1000;">Submit</button>
-                            <p id="thank-you-message" style="color: green; font-size: 1rem; margin: 0;">Thank you for your message. We will get back to you shortly!</p>
+                            <p id="thank-you-message" style="display: none; color: green; font-size: 1rem; margin: 0;">Thank you for your message. We will get back to you shortly!</p>
                         </div>
                     </form>
                 </div>
@@ -241,6 +252,10 @@
                     </div>
                 </div>
             </div>
+            <a href="#" class="arrow-container">
+                <div class="arrow-reverse"></div>
+                <span>BACK TO HOME</span>
+            </a>
         </section>
         <section id="footer">
             <ul id="socials">
@@ -251,7 +266,7 @@
                 <li><a href="mailto:deandre_21@hotmail.com" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></li>
             </ul>
             <p style="font-size: 15px; margin-top: 10px; margin-bottom: 10px;">© Deandre Sugandhi 2024</p>
-            <p style="font-size: 10px;">Coded in <span style="color: orange;">Visual Studio Code</span>, deployed with <span style="color: orange;">Vercel</span>. All text is set in the <span style="color: orange;">Outfit</span> typeface.</p>
+            <p style="font-size: 10px; text-align: center;">Coded in <span style="color: orange;">Visual Studio Code</span>, deployed with <span style="color: orange;">Vercel</span>. All text is set in the <span style="color: orange;">Outfit</span> typeface.</p>
         </section>
     </main>
 </body>

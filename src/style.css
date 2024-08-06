@@ -14,6 +14,10 @@ html, body, main  {
     color-scheme: dark;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 main {
     padding-bottom: 5vh;
     z-index: 1;
@@ -254,9 +258,7 @@ nav.active {
     .navblock:hover {
         cursor: default;
     }
-    .navblock.active {
-        border-bottom: 2px solid #e3963eb2;
-    }
+
     nav.active {
         top: 25px;
     }
