@@ -160,6 +160,7 @@ function initializeScene(containerId, imageUrl) {
         const width = container.clientWidth;
         const height = container.clientHeight;
         renderer.setSize(width, height);
+        renderer.setPixelRatio(window.devicePixelRatio);
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
         composer.setSize(width, height);  
