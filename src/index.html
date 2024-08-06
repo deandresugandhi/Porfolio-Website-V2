@@ -18,16 +18,17 @@
         {
           "imports": {
             "three": "https://cdn.jsdelivr.net/npm/three@0.167.0/build/three.module.js",
-            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.0/examples/jsm/"
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.0/examples/jsm/",
+            "tween": "https://cdnjs.cloudflare.com/ajax/libs/tween.js/25.0.0/tween.esm.js"
           }
         }
     </script>
     <script type="module" src="./threejs-particles.js"></script>
+    <script type="module" src="./threejs-about.js"></script>
     <!-- CDN for Font Awesome -->
     <script src="https://kit.fontawesome.com/3948f18200.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div id="particles-threejs"></div>
     <!-- Navigation bar -->
     <nav class="mainmenu">
         <div class = "navblock">
@@ -53,18 +54,94 @@
         <section id="homepage">
             <!-- Homepage main title component -->
             <header>
-                <h2>WEB DEVELOPER</h2>
-                <h1>Deandre Sugandhi</h1>
+                <h2 id="homepage-heading-1">WEB DEVELOPER</h2>
+                <h1 id="homepage-heading-2">Deandre Sugandhi</h1>
             </header>
-            <article>
+            <article style="max-width: none;">
                 <!-- Homepage introduction caption component -->
-                <h3>I build pixel-perfect and accessible digital experiences.</h3>
-
+                <h3 id="homepage-subheading">I build pixel-perfect and accessible digital experiences.</h3>
             </article>
             <div class="arrow-container">
                 <div class="arrow"></div>
-                <span>ABOUT</span>
+                <span>PROJECTS</span>
             </div>
+        </section>
+        <section id="projects">
+            <h1 class="section-header">Projects</h1>
+            <!-- Project 1 -->
+            <!-- <article>
+                <img src="./assets/tunebox.png">
+            </article> -->
+            <div class="threejs-container">
+                <div id="threejs-background-1" class="threejs-background"></div>
+            </div>
+            <article id="project">
+                <div class="desc">
+                    <h2>TuneBox</h2>
+                    <a href= "https://tune-box-woad.vercel.app/" target="_blank" rel="noopener noreferrer"><h3>Link to project</h3></a>
+                    <a href= "https://github.com/deandresugandhi/Tune-Box" target="_blank" rel="noopener noreferrer"><h3>Link to Github</h3></a>
+                </div>
+                <div class="spacing"></div>
+                <div class="details">
+                    <p>
+                        A web application containing various tools for musicians. Includes a web port of the Chord Translator desktop app as one the tools in the collection.
+                </div>
+            </article>
+            <!-- Project 2 -->
+            <div class="threejs-container">
+                <div id="threejs-background-2" class="threejs-background"></div>
+            </div>
+            <article id="project">
+                <div class="desc">
+                    <h2>Terminal Connect Four</h2>
+                    <a href= "https://github.com/deandresugandhi/DeandreSugandhi_T1A3" target="_blank" rel="noopener noreferrer"><h3>Link to project</h3></a>
+                    <a href= "https://github.com/deandresugandhi/DeandreSugandhi_T1A3" target="_blank" rel="noopener noreferrer"><h3>Link to Github</h3></a>
+                </div>
+                <div class="spacing"></div>
+                <div class="details">
+                    <p>
+                        Terminal app to play Connect Four, created as part of assignment in Coder Academy. Allows two players 
+                        to engage in PvP Connect Four matches. Include features like user account system, game history, customization,
+                        and game lobbies. Made exclusively in Python.
+                    </p>
+                </div>
+            </article>
+            <!-- Project 3 -->
+            <div class="threejs-container">
+                <div id="threejs-background-3" class="threejs-background"></div>
+            </div>
+            <article id="project">
+                <div class="desc">
+                    <h2>Chord Translator</h2>
+                    <a href= "https://github.com/deandresugandhi/Chord-Translator" target="_blank" rel="noopener noreferrer"><h3>Link to project</h3></a>
+                    <a href= "https://github.com/deandresugandhi/Chord-Translator" target="_blank" rel="noopener noreferrer"><h3>Link to Github</h3></a>
+                </div>
+                <div class="spacing"></div>
+                <div class="details">
+                    <p>
+                        Desktop application to translate, in the form of a Word document, chord progressions 
+                        written in the Nashville Number System into traditional chord notation and vice versa.
+                    </p>
+                </div>
+            </article>
+            <!-- Project 4 -->
+            <div class="threejs-container">
+                <div id="threejs-background-4" class="threejs-background"></div>
+            </div>
+            <article id="project">
+                <div class="desc">
+                    <h2>Doc Wait</h2>
+                    <a href= "https://docwait.netlify.app/admin" target="_blank" rel="noopener noreferrer"><h3>Link to project</h3></a>
+                    <a href= "https://github.com/deandresugandhi/DocWait" target="_blank" rel="noopener noreferrer"><h3>Link to Github</h3></a>
+                </div>
+                <div class="spacing"></div>
+                <div class="details">
+                    <p>
+                        A MERN stack single page application created within a team of three students as part of assignment in Coder Academy. Functions as 
+                        a patient queue monitoring app designed specifically for walk-in general practitioners.
+                    </p>
+                </div>
+            </article>
         </section>
         <section id="about">
             <div id="about-header">
@@ -84,6 +161,13 @@
                     <p>
                         When I'm not coding, my time is filled with movies, video games, books, and music. To me, stumbling across an unexpectedly well-crafted story is the definition of catharsis, no matter the media. Close the day off with an evening swim, and I've got myself the perfect day. Additionally, I am also developing a music and video production service with a fellow creative, taking gigs when opportunity arises.
                     </p>
+                    <div id="resume-link">
+                        <a href="./assets/deandreresume.pdf" 
+                        target="_blank" 
+                        rel="noopener noreferrer">
+                            LINK TO RESUME
+                        </a>
+                    </div>
                 </div>
                 <div id="skills">
                     <h2>Skills</h2>
@@ -100,7 +184,7 @@
                     <a href="#" class="icon"><image src="assets/express.png" style="width: 20px;" aria-hidden="true"></i> <span>Express</span></a>
                     <a href="#" class="icon"><image src="assets/flask.png" style="width: 20px;" aria-hidden="true"></i> <span>Flask</span></a>
                     <a href="#"><i class="fa-brands fa-git" style="color: #cb5f3a; margin-right: 3px;" aria-hidden="true"></i> <span>Git</span></a>
-                    <h3>Other Tools</h3>
+                    <h3 style="margin-top: 20px">Other Tools</h3>
                     <a href="#" class="icon"><image src="assets/illustrator.png" style="width: 20px;" aria-hidden="true"></i> <span>Illustrator</span></a>
                     <a href="#" class="icon"><image src="assets/premiere-pro.png" style="width: 20px;" aria-hidden="true"></i> <span>Premiere</span></a>
                     <a href="#" class="icon"><image src="assets/after-effects.png" style="width: 20px;" aria-hidden="true"></i> <span>After Effects</span></a>
@@ -111,87 +195,12 @@
                 </div>
             </article>
         </section>
-        <section id="projects">
-            <h1>Projects</h1>
-            <!-- Project 1 -->
-            <article>
-                <img src="./assets/project1.png">
-            </article>
-            <article id="project">
-                <div class="desc">
-                    <h2>Portfolio Website</h2>
-                    <a href= "https://deandresugandhi.dev/" target="_blank" rel="noopener noreferrer"><h3>Link to project</h3></a>
-                    <a href= "https://github.com/deandresugandhi/Portfolio-Website" target="_blank" rel="noopener noreferrer"><h3>Link to Github</h3></a>
-                </div>
-                <div class="spacing"></div>
-                <div class="details">
-                    <p>
-                        Portfolio website made for personal use, to showcase personality, experience, 
-                        and work as an IT professional. Website is made using html, css, and JavaScript.
-                    </p>
-                </div>
-            </article>
-            <!-- Project 2 -->
-            <article>
-                <img src="./assets/connectfour.png">
-            </article>
-            <article id="project">
-                <div class="desc">
-                    <h2>Terminal Connect Four</h2>
-                    <a href= "https://github.com/deandresugandhi/DeandreSugandhi_T1A3" target="_blank" rel="noopener noreferrer"><h3>Link to project</h3></a>
-                    <a href= "https://github.com/deandresugandhi/DeandreSugandhi_T1A3" target="_blank" rel="noopener noreferrer"><h3>Link to Github</h3></a>
-                </div>
-                <div class="spacing"></div>
-                <div class="details">
-                    <p>
-                        Terminal app to play Connect Four, created as part of assignment in Coder Academy. Allows two players 
-                        to engage in PvP Connect Four matches. Include features like user account system, game history, customization,
-                        and game lobbies. Made exclusively in Python.
-                    </p>
-                </div>
-            </article>
-            <!-- Project 3 -->
-            <article>
-                <img src="./assets/chordtranslator.png">
-            </article>
-            <article id="project">
-                <div class="desc">
-                    <h2>Chord Translator</h2>
-                    <a href= "https://github.com/deandresugandhi/Chord-Translator" target="_blank" rel="noopener noreferrer"><h3>Link to project</h3></a>
-                    <a href= "https://github.com/deandresugandhi/Chord-Translator" target="_blank" rel="noopener noreferrer"><h3>Link to Github</h3></a>
-                </div>
-                <div class="spacing"></div>
-                <div class="details">
-                    <p>
-                        Desktop application to translate, in the form of a Word document, chord progressions 
-                        written in the Nashville Number System into traditional chord notation and vice versa.
-                    </p>
-                </div>
-            </article>
-            <!-- Project 4 -->
-            <article>
-                <img src="./assets/docwait.png">
-            </article>
-            <article id="project">
-                <div class="desc">
-                    <h2>Doc Wait</h2>
-                    <a href= "https://docwait.netlify.app/admin" target="_blank" rel="noopener noreferrer"><h3>Link to project</h3></a>
-                    <a href= "https://github.com/deandresugandhi/DocWait" target="_blank" rel="noopener noreferrer"><h3>Link to Github</h3></a>
-                </div>
-                <div class="spacing"></div>
-                <div class="details">
-                    <p>
-                        A MERN stack single page application created within a team of three students as part of assignment in Coder Academy. Functions as 
-                        a patient queue monitoring app designed specifically for walk-in general practitioners.
-                    </p>
-                </div>
-            </article>
-        </section>
-        <section id="footer">
-            <div class="contact-form">
-                <div class="test">
+        <section id="contact">
+            <h1 style="text-align: center">Get in Touch</h1>
+            <div class="contact-me">
+                <div class="contact-form">
                     <h2>Say Hello!</h2>
-                    <form action="https://example.com/submit" method="post">
+                    <form action="https://formspree.io/f/mqazqrjk" method="post">
                         <div class="form-group">
                             <input type="text" id="name" name="first-name" required placeholder="First Name">
                             <input type="text" id="name" name="last-name" required placeholder="Last Name">
@@ -203,25 +212,43 @@
                         <div class="form-group">
                             <textarea id="message" name="message" rows="5" required placeholder="Message"></textarea>
                         </div>
-                        <button type="submit">Submit</button>
+                        <div id="send-message" class="form-group" style="margin-bottom: 0px;">
+                            <button type="submit" style="color: black; font-weight: 1000;">Submit</button>
+                            <p id="thank-you-message" style="color: green; font-size: 1rem; margin: 0;">Thank you for your message. We will get back to you shortly!</p>
+                        </div>
                     </form>
                 </div>
-                <div class="test">
+                <div class="contact-info">
                     <h2>Contact Information</h2>
-                    <p> test</p>
-                    <p> test</p>
-                    <p> test</p>
-                    <p> test</p>
-                    <ul id="socials">
-                        <li><a href="https://www.facebook.com/deandre.sugandhi/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a></li>
-                        <li><a href="https://github.com/deandresugandhi" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i></a></li>
-                        <li><a href="https://www.linkedin.com/in/deandre-sugandhi-9417a91b0/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a></li>
-                        <li><a href="https://www.instagram.com/deandresugandhi/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a></li>
-                        <li><a href="mailto:deandre_21@hotmail.com" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></li>
-                    </ul>
+                    <div class="info-group">
+                        <h3>Email</h3>
+                        <p>deandre_21@hotmail.com</p>
+                    </div>
+                    <div class="info-group">
+                        <h3>Phone</h3>
+                        <p>0451-304-291</p>
+                    </div>
+                    <div class="info-group">
+                        <h3>Address</h3>
+                        <p>2 Muller Lane, Mascot NSW</p>
+                    </div>
+                    <div class="info-group">
+                        <h3>Creative Portfolio</h3>
+                        <p>https://deandresugandhi.myportfolio.com/</p>
+                    </div>
                 </div>
             </div>
-            <p>© Deandre Sugandhi 2024</p>
+        </section>
+        <section id="footer">
+            <ul id="socials">
+                <li><a href="https://www.facebook.com/deandre.sugandhi/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a></li>
+                <li><a href="https://github.com/deandresugandhi" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.linkedin.com/in/deandre-sugandhi-9417a91b0/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.instagram.com/deandresugandhi/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a></li>
+                <li><a href="mailto:deandre_21@hotmail.com" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></li>
+            </ul>
+            <p style="font-size: 15px; margin-top: 10px; margin-bottom: 10px;">© Deandre Sugandhi 2024</p>
+            <p style="font-size: 10px;">Coded in <span style="color: orange;">Visual Studio Code</span>, deployed with <span style="color: orange;">Vercel</span>. All text is set in the <span style="color: orange;">Outfit</span> typeface.</p>
         </section>
     </main>
 </body>

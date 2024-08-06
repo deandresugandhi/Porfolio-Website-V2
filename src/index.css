@@ -15,7 +15,9 @@ section {
 }
 
 .section-header {
-    font-size: 8rem;
+    font-size: 6rem;
+    padding-bottom: 30px;
+    border-bottom: 3px solid #E3963E;
 }
 
 #about-header {
@@ -45,9 +47,9 @@ section {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #1b1b1b;
+    background-color: #141414;
     z-index: 1;
-    padding-top: 10vw;
+    padding-top: 6vw;
 }
 
 #about {
@@ -55,9 +57,10 @@ section {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding-top: 10vw;
-    background-color: #1b1b1b;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
     z-index: 1;
+    background-color: #1b1b1b;
 }
 
 /* Homepage header styling */
@@ -88,13 +91,6 @@ header h1:first-of-type {
 header h2 {
     font-size: 2vw;
     align-self: flex-end;
-}
-
-#homepage article h3 {
-    font-size: 1.8rem;
-    color: white;
-    align-self: flex-end;
-    margin-bottom: 10px;
 }
 
 #about article {
@@ -160,8 +156,8 @@ section .arrow-container {
 }
 
 #deandre {
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
 }
 
@@ -178,11 +174,11 @@ section .arrow-container {
 
 #socials li a {
     position: relative;
-    width:30px;
-    height:30px;
-    display:block;
-    text-align:center;
-    margin:0 10px;
+    width: 40px;
+    height: 40px;
+    display: block;
+    text-align: center;
+    margin: 0 5px;
     border-radius: 50%;
     padding: 6px;
     box-sizing: border-box;
@@ -199,11 +195,12 @@ section .arrow-container {
 
 #socials li a i {
     width: 100%;
-    height:100%;
-    display:block;
+    height: 100%;
+    position: relative;
     background: linear-gradient(0deg, #fff, #ddd);
     border-radius: 50%;
-    font-size:20px;
+    line-height: 28px;
+    font-size: 18px;
     color: #262626;
     transition: .5s;
 }
@@ -277,16 +274,12 @@ section .arrow-container {
     background:rgba(240, 240, 240, 0)
 }
 
-#projects {
-    background:rgb(43, 43, 43);
-}
-
 .desc h2 {
     margin-bottom: 5px;
 }
 
 #projects h1 {
-    margin-bottom: 80px;
+    margin-bottom: 30px;
 }
 
 #about-content {
@@ -326,7 +319,7 @@ section .arrow-container {
     margin-top: 20px;
 }
 
-#skills h3{
+#skills h3 {
     width: 100%;
     font-size: 1.5rem;
 }
@@ -335,9 +328,6 @@ section .arrow-container {
     width: 60%;
 }
 
-#bio, #skills {
-    overflow: auto;
-}
 
 .icon {
     display: flex;
@@ -347,30 +337,53 @@ section .arrow-container {
     gap: 4px;
 }
 
+#contact {
+    height: auto;
+    min-height: auto;
+    background-color: rgb(17, 17, 17);
+    padding-bottom: 30px;
+}
+
+#contact h1 {
+    font-size: 4rem;
+    margin-top: 50px;
+}
+
 #footer {
     height: auto;
     min-height: auto;
-    background-color: black;
+    background-color: rgb(0, 0, 0);
+    padding-top: 40px;
+    padding-bottom: 20px;
 }
 
-.contact-form {
-    max-width: 600px;
-    margin: 0 auto;
+.contact-me {
+    width: 100%;
+    max-width: 1020px;
+    margin: 0;
     padding: 20px;
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    justify-content: space-between;
+    gap: 100px;
+}
+
+.contact-form {
+    width: 50vw;
+    max-width: 800px;
 }
 
 .contact-form h2 {
     margin-bottom: 20px;
     font-size: 24px;
 }
+
 .contact-form .form-group {
     margin-bottom: 15px;
     display: flex;
     flex-direction: row;
     gap: 15px;
+    align-items: center;
 }
 
 .contact-form .form-group input,
@@ -387,7 +400,7 @@ section .arrow-container {
 .contact-form button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007BFF;
+    background-color: #ff7b00;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -395,4 +408,179 @@ section .arrow-container {
 }
 .contact-form button:hover {
     background-color: #0056b3;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contact-info p {
+    font-size: 15px;
+}
+
+.contact-info h3 {
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: #ff9f0f
+}
+
+.info-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info-group p {
+    margin-bottom: 0
+}
+
+#resume-link a {
+    background-color:#e67830;
+    text-align: center;
+    border-radius: 5px;
+    color: black;
+    font-size: 1rem;
+    padding: 10px;
+    font-weight: 1000;
+}
+
+#resume-link {
+    margin-top: 20px;
+}
+
+#homepage-subheading {
+    color: white;
+    align-self: flex-end;
+    margin-bottom: 10px;
+    font-size: 2vw;
+}
+
+/* Navigation Bar Styling for bigger Devices */
+@media only screen and (min-width: 850px) {
+    .section-header {
+        font-size: 8rem;
+    }
+
+    #deandre {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    #about-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #bio, #skills {
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    #about-header {
+        flex-direction: column;
+    }
+
+    .section-header {
+        text-align: center;
+        font-size: 4rem;
+    }
+
+    #project {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .desc {
+        align-items: center;
+        width: auto;
+        margin-bottom: 20px;
+        align-self: center;
+        border-bottom: 2px solid #E3963E;
+        padding-bottom: 20px; 
+    }
+
+    .desc h2 {
+        font-size: 2.5rem;
+        text-align: center;
+        line-height: 1;
+        margin-bottom: 15px;
+    }
+
+    .details {
+        width: 100%;
+        text-align: center;
+        border: none;
+    }
+}
+
+@media only screen and (max-width: 950px) {
+    .contact-me {
+        flex-direction: column;
+        gap: 50px;
+        margin: 0;
+        width: 100%
+    }
+
+    .contact-info {
+        align-items: center;
+        gap: 20px;
+    }
+
+    .info-group {
+        align-items: center;
+    }
+
+    .contact-form {
+        width: 100%;
+    }
+
+    .contact-form h2 {
+        text-align: center;
+    }
+
+    .form-group {
+        justify-content: center;
+    }
+
+    #send-message {
+        flex-direction: column;
+    }
+
+    #homepage-heading-1 {
+        font-size: 30px;
+    }
+
+    #homepage-heading-2 {
+        font-size: 80px;
+    }
+
+    #homepage-subheading {
+        font-size: 20px;
+        align-self: left;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    #homepage-heading-1 {
+        font-size: 20px;
+    }
+
+    #homepage-heading-2 {
+        font-size: 60px;
+    }
+
+    #homepage-subheading {
+        font-size: 15px;
+    }
 }
