@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true; // Enable shadow maps
     renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Use soft shadows
+    renderer.setPixelRatio(window.devicePixelRatio)
     document.body.appendChild(renderer.domElement);
 
     // Add orbit controls

@@ -19,6 +19,7 @@ function initializeScene(containerId, imageUrl) {
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.setPixelRatio(window.devicePixelRatio)
     container.appendChild(renderer.domElement);
 
     // Disable tone mapping to avoid brightness issues
