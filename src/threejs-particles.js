@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderer.shadowMap.enabled = true; // Enable shadow maps
     renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Use soft shadows
     renderer.setPixelRatio(window.devicePixelRatio)
-    document.body.appendChild(renderer.domElement);
+    document.getElementById('threejs-particle-background').appendChild(renderer.domElement);
 
     // Add orbit controls
     const controls = new OrbitControls(camera, renderer.domElement);
