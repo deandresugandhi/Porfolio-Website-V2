@@ -114,31 +114,21 @@ function initializeScene(containerId, imageUrl) {
     // Variables for TweenJS animations
     let hoverTweenPosition;
     let leaveTweenPosition;
-    let isRendering = false;
-    let hoverCooldown = false;
-    let leaveCooldown = false;
+    let animationState = 'idle'; // Added state variable
 
     function createTweens() {
         hoverTweenPosition = new Tween(camera.position)
             .to({ x: 0, y: 0, z: 5 }, 500)
             .easing(Easing.Quadratic.Out)
             .onComplete(() => {
-                isRendering = false;
-                hoverCooldown = true;
-                setTimeout(() => {
-                    hoverCooldown = false;
-                }, 200); // Adjust cooldown time as needed
+                animationState = 'idle';
             });
 
         leaveTweenPosition = new Tween(camera.position)
             .to({ x: -1.5, y: 1, z: 5 }, 500)
             .easing(Easing.Quadratic.Out)
             .onComplete(() => {
-                isRendering = false;
-                leaveCooldown = true;
-                setTimeout(() => {
-                    leaveCooldown = false;
-                }, 200); // Adjust cooldown time as needed
+                animationState = 'idle';
             });
     }
 
@@ -146,18 +136,16 @@ function initializeScene(containerId, imageUrl) {
 
     // Tween animations
     function onHover() {
-        if (!hoverCooldown) {
-          isRendering = true;
-          hoverTweenPosition.start();
-        }
-      }
+        animationState = 'hovering';
+        leaveTweenPosition.stop();
+        hoverTweenPosition.start();
+    }
       
-      function onLeave() {
-        if (!leaveCooldown) {
-          isRendering = true;
-          leaveTweenPosition.start();
-        }
-      }
+    function onLeave() {
+        animationState = 'leaving';
+        hoverTweenPosition.stop();
+        leaveTweenPosition.start();
+    }
 
     container.addEventListener('mouseenter', onHover);
     container.addEventListener('mouseleave', onLeave);
@@ -165,7 +153,7 @@ function initializeScene(containerId, imageUrl) {
     // Render loop
     function animate() {
         requestAnimationFrame(animate);
-        if (isRendering) {
+        if (animationState != 'idle') {
             // console.log('rendering frames')
             if (hoverTweenPosition) hoverTweenPosition.update();
             if (leaveTweenPosition) leaveTweenPosition.update();
