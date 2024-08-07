@@ -115,8 +115,6 @@ function initializeScene(containerId, imageUrl) {
     let hoverTweenPosition;
     let leaveTweenPosition;
     let isRendering = false;
-    let hoverTweenActive = false;
-    let leaveTweenActive = false;
     let hoverCooldown = false;
     let leaveCooldown = false;
 
@@ -126,7 +124,6 @@ function initializeScene(containerId, imageUrl) {
             .easing(Easing.Quadratic.Out)
             .onComplete(() => {
                 isRendering = false;
-                hoverTweenActive = false;
                 hoverCooldown = true;
                 setTimeout(() => {
                     hoverCooldown = false;
@@ -138,7 +135,6 @@ function initializeScene(containerId, imageUrl) {
             .easing(Easing.Quadratic.Out)
             .onComplete(() => {
                 isRendering = false;
-                leaveTweenActive = false;
                 leaveCooldown = true;
                 setTimeout(() => {
                     leaveCooldown = false;
@@ -150,18 +146,16 @@ function initializeScene(containerId, imageUrl) {
 
     // Tween animations
     function onHover() {
-        if (!hoverTweenActive && !hoverCooldown) {
+        if (!hoverCooldown) {
           isRendering = true;
           hoverTweenPosition.start();
-          hoverTweenActive = true;
         }
       }
       
       function onLeave() {
-        if (!leaveTweenActive && !leaveCooldown) {
+        if (!leaveCooldown) {
           isRendering = true;
           leaveTweenPosition.start();
-          leaveTweenActive = true;
         }
       }
 
