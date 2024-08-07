@@ -237,7 +237,7 @@ section .arrow-container {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    width: 40%;
+    width: 35%;
     align-self: flex-start;
     text-align: right;
 }
@@ -271,7 +271,8 @@ section .arrow-container {
 
 /* Projects section spacing */
 .spacing {
-    flex-grow: 1;
+    /* flex-grow: 1; */
+    width: 45px;
 }
 
 #project {

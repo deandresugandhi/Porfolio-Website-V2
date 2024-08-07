@@ -43,7 +43,7 @@ function initializeScene(containerId, imageUrl) {
     });
 
     // Screen
-    const screenGeometry = new THREE.BoxGeometry(4, 2.3, 0.1);
+    const screenGeometry = new THREE.BoxGeometry(4, 2.3, 0.01);
     const screenMaterial = new THREE.MeshBasicMaterial({ map: screenTexture });
     const screen = new THREE.Mesh(screenGeometry, screenMaterial);
     screen.position.set(0, 0, 0.1);
@@ -82,7 +82,7 @@ function initializeScene(containerId, imageUrl) {
     scene.add(monitorGroup);
 
     // Set the camera position and make it look at the origin (0, 0, 0)
-    camera.position.set(-1.5, 1, 5); // Adjust as needed
+    camera.position.set(-3, 2, 6.5); // Adjust as needed
     camera.lookAt(new THREE.Vector3(0, 0, 0));
     
 
@@ -125,7 +125,7 @@ function initializeScene(containerId, imageUrl) {
             });
 
         leaveTweenPosition = new Tween(camera.position)
-            .to({ x: -1.5, y: 1, z: 5 }, 500)
+            .to({ x: -3, y: 2, z: 6.5 }, 500)
             .easing(Easing.Quadratic.Out)
             .onComplete(() => {
                 animationState = 'idle';
