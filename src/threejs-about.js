@@ -1,7 +1,8 @@
 import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { Tween, Easing, update } from 'tween';
+import { Tween, Easing } from 'tween';
 
 function initializeScene(containerId, imageUrl) {
     const container = document.getElementById(containerId);
@@ -25,6 +26,9 @@ function initializeScene(containerId, imageUrl) {
     // Disable tone mapping to avoid brightness issues
     renderer.toneMapping = THREE.NoToneMapping;
     renderer.outputEncoding = THREE.sRGBEncoding;
+
+    // Add orbit controls
+    // const controls = new OrbitControls(camera, renderer.domElement);
 
     // Create PC Monitor Components
     const monitorGroup = new THREE.Group();
@@ -79,7 +83,8 @@ function initializeScene(containerId, imageUrl) {
 
     // Set the camera position and make it look at the origin (0, 0, 0)
     camera.position.set(-1.5, 1, 5); // Adjust as needed
-    camera.lookAt(new THREE.Vector3(0, 0, 0)); // Ensure the camera looks at the origin
+    camera.lookAt(new THREE.Vector3(0, 0, 0));
+    
 
     // Add Ambient Light
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -94,7 +99,7 @@ function initializeScene(containerId, imageUrl) {
     // Add Back Light
     const backLight = new THREE.DirectionalLight(0xffffff, 0.8);
     backLight.position.set(0, 2, -5).normalize();
-    backLight.shadow.mapSize.width = 1024; // Higher resolution shadows
+    backLight.shadow.mapSize.width = 1024;
     backLight.shadow.mapSize.height = 1024;
     backLight.castShadow = true;
     scene.add(backLight);
@@ -109,49 +114,72 @@ function initializeScene(containerId, imageUrl) {
     // Variables for TweenJS animations
     let hoverTweenPosition;
     let leaveTweenPosition;
+    let isRendering = false;
+    let hoverTweenActive = false;
+    let leaveTweenActive = false;
+    let hoverCooldown = false;
+    let leaveCooldown = false;
 
-    // Create Tween animations
     function createTweens() {
         hoverTweenPosition = new Tween(camera.position)
             .to({ x: 0, y: 0, z: 5 }, 500)
-            .easing(Easing.Quadratic.Out);
+            .easing(Easing.Quadratic.Out)
+            .onComplete(() => {
+                isRendering = false;
+                hoverTweenActive = false;
+                hoverCooldown = true;
+                setTimeout(() => {
+                    hoverCooldown = false;
+                }, 200); // Adjust cooldown time as needed
+            });
 
         leaveTweenPosition = new Tween(camera.position)
             .to({ x: -1.5, y: 1, z: 5 }, 500)
-            .easing(Easing.Quadratic.Out);
+            .easing(Easing.Quadratic.Out)
+            .onComplete(() => {
+                isRendering = false;
+                leaveTweenActive = false;
+                leaveCooldown = true;
+                setTimeout(() => {
+                    leaveCooldown = false;
+                }, 200); // Adjust cooldown time as needed
+            });
     }
 
     createTweens();
 
     // Tween animations
     function onHover() {
-        // console.log('Hover detected');
-        hoverTweenPosition.start();
-    }
+        if (!hoverTweenActive && !hoverCooldown) {
+          isRendering = true;
+          hoverTweenPosition.start();
+          hoverTweenActive = true;
+        }
+      }
+      
+      function onLeave() {
+        if (!leaveTweenActive && !leaveCooldown) {
+          isRendering = true;
+          leaveTweenPosition.start();
+          leaveTweenActive = true;
+        }
+      }
 
-    function onLeave() {
-        // console.log('Mouse leave detected');
-        leaveTweenPosition.start();
-    }
-
-    container.addEventListener('mouseenter', () => {
-        // console.log('Mouse entered container');
-        onHover();
-    });
-    container.addEventListener('mouseleave', () => {
-        // console.log('Mouse left container');
-        onLeave();
-    });
+    container.addEventListener('mouseenter', onHover);
+    container.addEventListener('mouseleave', onLeave);
 
     // Render loop
     function animate() {
         requestAnimationFrame(animate);
-        if (hoverTweenPosition) hoverTweenPosition.update();
-        if (leaveTweenPosition) leaveTweenPosition.update();
-        camera.lookAt(new THREE.Vector3(0, 0, 0));
-        composer.render();
+        if (isRendering) {
+            // console.log('rendering frames')
+            if (hoverTweenPosition) hoverTweenPosition.update();
+            if (leaveTweenPosition) leaveTweenPosition.update();
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+            composer.render();
+        }
     }
-    animate();
+    animate()
 
     // Adjust renderer size on window resize
     window.addEventListener('resize', () => {
