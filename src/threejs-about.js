@@ -89,15 +89,13 @@ function initializeScene(containerId, imageUrl) {
     const directionalLight = new THREE.DirectionalLight(0xffffff, 6);
     directionalLight.position.set(5, 10, 3).normalize();
     directionalLight.castShadow = true;
-    directionalLight.shadow.mapSize.width = 2048; // Higher resolution shadows
-    directionalLight.shadow.mapSize.height = 2048;
     scene.add(directionalLight);
 
     // Add Back Light
     const backLight = new THREE.DirectionalLight(0xffffff, 0.8);
     backLight.position.set(0, 2, -5).normalize();
-    backLight.shadow.mapSize.width = 2048; // Higher resolution shadows
-    backLight.shadow.mapSize.height = 2048;
+    backLight.shadow.mapSize.width = 1024; // Higher resolution shadows
+    backLight.shadow.mapSize.height = 1024;
     backLight.castShadow = true;
     scene.add(backLight);
 
@@ -127,21 +125,21 @@ function initializeScene(containerId, imageUrl) {
 
     // Tween animations
     function onHover() {
-        console.log('Hover detected');
+        // console.log('Hover detected');
         hoverTweenPosition.start();
     }
 
     function onLeave() {
-        console.log('Mouse leave detected');
+        // console.log('Mouse leave detected');
         leaveTweenPosition.start();
     }
 
     container.addEventListener('mouseenter', () => {
-        console.log('Mouse entered container');
+        // console.log('Mouse entered container');
         onHover();
     });
     container.addEventListener('mouseleave', () => {
-        console.log('Mouse left container');
+        // console.log('Mouse left container');
         onLeave();
     });
 
@@ -175,7 +173,7 @@ function initializeScene(containerId, imageUrl) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM fully loaded and parsed');
+    // console.log('DOM fully loaded and parsed');
     // Initialize scenes for different containers with different images
     initializeScene('threejs-background-1', './assets/tunebox.png');
     initializeScene('threejs-background-2', './assets/connectfour.png');

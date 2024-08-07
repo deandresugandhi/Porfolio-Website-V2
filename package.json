@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@tweenjs/tween.js": "^25.0.0"
+    "@tweenjs/tween.js": "^25.0.0",
+    "stats.js": "^0.17.0"
   }
 }
