@@ -67,8 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
     scene.add(pointLight);
 
     // Add second point light
-    const pointLight2 = new THREE.PointLight(0xffff00, 3, 0, 0); // Bright yellow light
-    pointLight2.position.set(0, 30, 500); // Position the light to illuminate the scene
+    const pointLight2 = new THREE.DirectionalLight(0xffff00, 4, 0, 0); // Bright yellow light
+    pointLight2.position.set(0, 300, 300); // Position the light to illuminate the scene
     pointLight2.shadow.camera.near = 10; // Set shadow camera near plane
     pointLight2.shadow.camera.far = 400; // Set shadow camera far plane
     pointLight2.shadow.bias = -0.001; // Reduce shadow bias
@@ -106,9 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
     camera.lookAt(scene.position); // Make sure the camera is looking at the center of the scene
 
     // FPS counter for development
-    const stats = new Stats();
-    stats.showPanel(0); // 0: fps, 1: ms, 2: memory
-    document.body.appendChild(stats.dom);
+    // const stats = new Stats();
+    // stats.showPanel(0); // 0: fps, 1: ms, 2: memory
+    // document.body.appendChild(stats.dom);
 
     // FPS cap settings
     const desiredFPS = 60;
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const delta = (currentTime - lastFrameTime) / 1000; // Convert milliseconds to seconds
     
         if (delta >= (1 / (desiredFPS) )) {
-            stats.begin(); // Begin monitoring FPS
+            // stats.begin(); // Begin monitoring FPS
 
             // Debugging: log delta value
             // console.log(`Delta time: ${delta}`);
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             controls.update();
             composer.render(); // Use composer for rendering
-            stats.end(); // End monitoring FPS
+            // stats.end(); // End monitoring FPS
             lastFrameTime = currentTime; // Update the last frame time
         }
         requestAnimationFrame(animate);
@@ -155,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(animate);
 
     // Handle resizing
-
     const handleResize = () => {
         if (!isMobile) {
             renderer.setSize(window.innerWidth, window.innerHeight);
@@ -165,4 +164,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     window.addEventListener('resize', handleResize);
+
+    // Dispose on quit to prevent memory leaks
+    function dispose() {
+        // Dispose of geometries
+        geometry.dispose();
+
+        // Dispose of materials
+        material.dispose();
+        sunMaterial.dispose();
+
+        // Dispose of lights
+        scene.remove(ambientLight);
+        ambientLight.dispose();
+        scene.remove(pointLight);
+        pointLight.dispose();
+        scene.remove(pointLight2);
+        pointLight2.dispose();
+
+        // Dispose of post-processing effects
+        composer.removePass(bloomPass);
+        bloomPass.dispose();
+        composer.removePass(smaaPass);
+        smaaPass.dispose();
+        composer.dispose();
+
+        // Dispose of the renderer
+        renderer.dispose();
+
+        // Remove event listeners
+        window.removeEventListener('resize', handleResize);
+
+        // Remove the canvas from the DOM
+        const canvas = renderer.domElement;
+        if (canvas.parentElement) {
+            canvas.parentElement.removeChild(canvas);
+        }
+    }
+
+    // Call dispose function when needed, e.g., when navigating away from the page
+    // For demonstration purposes, we'll call it here
+    window.addEventListener('beforeunload', dispose);
 });
