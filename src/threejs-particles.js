@@ -48,8 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
             (Math.random() - 0.5) * 0.006,
             (Math.random() - 0.5) * 0.006
         );
-        particle.castShadow = true; // Enable shadow casting
-        particle.receiveShadow = true; // Enable shadow receiving
         particles.add(particle);
     }
 
@@ -95,8 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const bloomPass = new UnrealBloomPass(
         new THREE.Vector2(window.innerWidth, window.innerHeight),
         0.5, // Bloom strength
-        0.9, // Bloom radius
-        0.3 // Bloom threshold
+        0.8, // Bloom radius
+        0.8 // Bloom threshold
     );
     composer.addPass(bloomPass);
 
@@ -159,14 +157,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle resizing
 
     const handleResize = () => {
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        renderer.setSize(width, height);
-        composer.setSize(width, height);
-        camera.aspect = width / height;
-        camera.updateProjectionMatrix();
+        if (!isMobile) {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            composer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        }
     };
-
     window.addEventListener('resize', handleResize);
-    handleResize(); 
 });
