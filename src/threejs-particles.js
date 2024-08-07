@@ -157,10 +157,16 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(animate);
 
     // Handle resizing
-    window.addEventListener('resize', () => {
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        composer.setSize(window.innerWidth, window.innerHeight);
-        camera.aspect = window.innerWidth / window.innerHeight;
+
+    const handleResize = () => {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        renderer.setSize(width, height);
+        composer.setSize(width, height);
+        camera.aspect = width / height;
         camera.updateProjectionMatrix();
-    });
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); 
 });
