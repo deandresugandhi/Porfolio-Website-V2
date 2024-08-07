@@ -4,7 +4,7 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js'
-import Stats from '../node_modules/stats.js/src/Stats.js';
+import Stats from './Stats.js';
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -61,6 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const pointLight = new THREE.PointLight(0xffff00, 10, 0, 0); // Bright yellow light
     pointLight.position.set(10, 15, 0); // Position the light at the same location as the sun
     pointLight.castShadow = true; // Enable shadow casting for the point light
+    // pointLight.shadow.mapSize.width = 512;
+    // pointLight.shadow.mapSize.height = 512;
     pointLight.shadow.camera.near = 10; // Set shadow camera near plane
     pointLight.shadow.camera.far = 400; // Set shadow camera far plane
     pointLight.shadow.bias = -0.001; // Reduce shadow bias
