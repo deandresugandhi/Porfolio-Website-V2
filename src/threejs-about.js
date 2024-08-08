@@ -88,12 +88,12 @@ function initializeScene(containerId, images, allowSlidingImages) {
     const rightArrowGeometry = createTriangleGeometry('right');
     let buttonMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0 });
     const leftButton = new THREE.Mesh(leftArrowGeometry, buttonMaterial);
-    leftButton.scale.set(0.09, 0.07, 0.1)
-    leftButton.position.set(-1.75, 0, 0.11); // Position on the left side of the screen
+    leftButton.scale.set(0.15, 0.15, 0.1)
+    leftButton.position.set(-1.6, 0, 0.11); // Position on the left side of the screen
     monitorGroup.add(leftButton);
     const rightButton = new THREE.Mesh(rightArrowGeometry, buttonMaterial);
-    rightButton.scale.set(0.09, 0.07, 0.1)
-    rightButton.position.set(1.75, 0, 0.11); // Position on the right side of the screen
+    rightButton.scale.set(0.15, 0.15, 0.1)
+    rightButton.position.set(1.6, 0, 0.11); // Position on the right side of the screen
     monitorGroup.add(rightButton);
 
     // Frame
