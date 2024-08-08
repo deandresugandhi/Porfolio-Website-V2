@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 10, 300);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight + 50);
+    renderer.setSize(window.innerWidth, window.innerHeight + 100);
     renderer.shadowMap.enabled = true; // Enable shadow maps
     renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Use soft shadows
     renderer.setPixelRatio(window.devicePixelRatio)
