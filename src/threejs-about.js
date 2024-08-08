@@ -1,10 +1,9 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { Tween, Easing } from 'tween';
 
-function initializeScene(containerId, imageUrl) {
+function initializeScene(containerId, images, allowSlidingImages) {
     const container = document.getElementById(containerId);
     if (!container) {
         console.error(`Container with ID ${containerId} not found.`);
@@ -27,27 +26,75 @@ function initializeScene(containerId, imageUrl) {
     renderer.toneMapping = THREE.NoToneMapping;
     renderer.outputEncoding = THREE.sRGBEncoding;
 
-    // Add orbit controls
-    // const controls = new OrbitControls(camera, renderer.domElement);
-
     // Create PC Monitor Components
     const monitorGroup = new THREE.Group();
 
-    // Load the texture for the screen
-    const textureLoader = new THREE.TextureLoader();
-    const screenTexture = textureLoader.load(imageUrl, (texture) => {
-        texture.colorSpace = THREE.SRGBColorSpace;
-        texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-        screenMaterial.map = texture;
-        renderer.render(scene, camera);
-    });
+    // Crop screens to only display current screen
+    const clipPlane = new THREE.Plane(new THREE.Vector3(1, 0, 0), 2);
+    const clipPlane2 = new THREE.Plane(new THREE.Vector3(-1, 0, 0), 2);
+    const clipPlanes = [clipPlane, clipPlane2];
+    renderer.localClippingEnabled = true;
 
     // Screen
     const screenGeometry = new THREE.BoxGeometry(4, 2.3, 0.01);
-    const screenMaterial = new THREE.MeshBasicMaterial({ map: screenTexture });
-    const screen = new THREE.Mesh(screenGeometry, screenMaterial);
+    const screenMaterial = new THREE.MeshBasicMaterial({ map: null, clippingPlanes: clipPlanes });
+    const screenMaterial2 = new THREE.MeshBasicMaterial({ map: null, clippingPlanes: clipPlanes });
+    const screenMaterial3 = new THREE.MeshBasicMaterial({ map: null, clippingPlanes: clipPlanes });
+    let screen = new THREE.Mesh(screenGeometry, screenMaterial);
+    let screen2 = new THREE.Mesh(screenGeometry, screenMaterial2);
+    let screen3 = new THREE.Mesh(screenGeometry, screenMaterial3);
     screen.position.set(0, 0, 0.1);
+    screen2.position.set(4, 0, 0.1);
+    screen3.position.set(-4, 0, 0.1);
     monitorGroup.add(screen);
+    monitorGroup.add(screen2);
+    monitorGroup.add(screen3);
+
+    // Load the texture for the screen
+    let currentImageIndex = 0;
+    const textureLoader = new THREE.TextureLoader();
+    const loadTexture = (index, screen, callback) => {
+        textureLoader.load(images[index], (texture) => {
+            texture.colorSpace = THREE.SRGBColorSpace;
+            texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+            screen.material.map = texture;
+            screen.material.needsUpdate = true;
+            if (callback) callback();
+            renderer.render(scene, camera);
+        });
+    };
+    loadTexture(currentImageIndex, screen);
+    loadTexture((currentImageIndex + 1) % images.length, screen2);
+    loadTexture((currentImageIndex - 1 + images.length) % images.length, screen3);
+
+
+    // Buttons
+    function createTriangleGeometry(direction) {
+        const shape = new THREE.Shape();
+        if (direction === 'left') {
+            shape.moveTo(0, 1);
+            shape.lineTo(-1, 0);
+            shape.lineTo(0, -1);
+            shape.lineTo(0, 1);
+        } else if (direction === 'right') {
+            shape.moveTo(0, 1);
+            shape.lineTo(1, 0);
+            shape.lineTo(0, -1);
+            shape.lineTo(0, 1);
+        }
+        return new THREE.ShapeGeometry(shape);
+    }
+    const leftArrowGeometry = createTriangleGeometry('left');
+    const rightArrowGeometry = createTriangleGeometry('right');
+    let buttonMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0 });
+    const leftButton = new THREE.Mesh(leftArrowGeometry, buttonMaterial);
+    leftButton.scale.set(0.09, 0.07, 0.1)
+    leftButton.position.set(-1.75, 0, 0.11); // Position on the left side of the screen
+    monitorGroup.add(leftButton);
+    const rightButton = new THREE.Mesh(rightArrowGeometry, buttonMaterial);
+    rightButton.scale.set(0.09, 0.07, 0.1)
+    rightButton.position.set(1.75, 0, 0.11); // Position on the right side of the screen
+    monitorGroup.add(rightButton);
 
     // Frame
     const frameGeometry = new THREE.BoxGeometry(4.1, 2.4, 0.2);
@@ -85,7 +132,6 @@ function initializeScene(containerId, imageUrl) {
     camera.position.set(-3, 2, 6.5); // Adjust as needed
     camera.lookAt(new THREE.Vector3(0, 0, 0));
     
-
     // Add Ambient Light
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
@@ -104,6 +150,61 @@ function initializeScene(containerId, imageUrl) {
     backLight.castShadow = true;
     scene.add(backLight);
 
+    // Setup raycaster and mouse vector for button press events
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    // Function to detect clicks
+    function onMouseClick(event) {
+        // Get bounding rectangle of the canvas
+        const canvasBoundingRect = renderer.domElement.getBoundingClientRect();
+
+        // Normalize mouse coordinates relative to canvas
+        mouse.x = ((event.clientX - canvasBoundingRect.left) / canvasBoundingRect.width) * 2 - 1;
+        mouse.y = -((event.clientY - canvasBoundingRect.top) / canvasBoundingRect.height) * 2 + 1;
+
+        // Update the raycaster with the camera and mouse position
+        raycaster.setFromCamera(mouse, camera);
+
+        // Check for intersections
+        const intersects = raycaster.intersectObjects([leftButton, rightButton]); // Add your buttons here
+
+        if (intersects.length > 0) {
+            const object = intersects[0].object;
+            if (object === leftButton) {
+                slideImages('previous')
+            } else if (object === rightButton) {
+                slideImages('next');
+            }
+        }
+    }
+
+    function onMouseMove(event) {
+        // Get bounding rectangle of the canvas
+        const canvasBoundingRect = renderer.domElement.getBoundingClientRect();
+
+        // Normalize mouse coordinates relative to canvas
+        mouse.x = ((event.clientX - canvasBoundingRect.left) / canvasBoundingRect.width) * 2 - 1;
+        mouse.y = -((event.clientY - canvasBoundingRect.top) / canvasBoundingRect.height) * 2 + 1;
+    
+        // Update the raycaster with the camera and mouse position
+        raycaster.setFromCamera(mouse, camera);
+
+        // Check for intersections
+        const intersects = raycaster.intersectObjects([leftButton, rightButton]); // Add your buttons here
+
+        if (intersects.length > 0) {
+            document.body.style.cursor = 'pointer';
+        } else {
+            document.body.style.cursor = 'default';
+        }
+    }
+
+    // Add event listener
+    window.addEventListener('click', onMouseClick);
+    container.addEventListener('mousemove', onMouseMove);
+
+
     // Create the EffectComposer and Passes
     const composer = new EffectComposer(renderer);
 
@@ -114,37 +215,163 @@ function initializeScene(containerId, imageUrl) {
     // Variables for TweenJS animations
     let hoverTweenPosition;
     let leaveTweenPosition;
-    let animationState = 'idle'; // Added state variable
+    let hoverTweenButtonOpacity;
+    let leaveTweenButtonOpacity;
+    let screen1SlideNext;
+    let screen1SlidePrevious;
+    let screen2Slide;
+    let screen3Slide;
+    let animationState = ['idle', 'idle'] // Added state variable
 
     function createTweens() {
         hoverTweenPosition = new Tween(camera.position)
             .to({ x: 0, y: 0, z: 5 }, 500)
             .easing(Easing.Quadratic.Out)
             .onComplete(() => {
-                animationState = 'idle';
+                animationState[0] = 'idle';
             });
-
+        
         leaveTweenPosition = new Tween(camera.position)
             .to({ x: -3, y: 2, z: 6.5 }, 500)
             .easing(Easing.Quadratic.Out)
             .onComplete(() => {
-                animationState = 'idle';
+                animationState[0]  = 'idle';
             });
+        
+        hoverTweenButtonOpacity = new Tween({ opacity: buttonMaterial.opacity })
+            .to({ opacity: allowSlidingImages ? 0.25 : 0 }, 500)
+            .easing(Easing.Quadratic.InOut)
+            .onUpdate((newOpacity) => {
+                buttonMaterial.opacity = newOpacity.opacity;
+                buttonMaterial.needsUpdate = true;
+            })
+            .onComplete(() => {
+                animationState[0]  = 'idle';
+            });
+        
+        leaveTweenButtonOpacity = new Tween({ opacity: buttonMaterial.opacity })
+            .to({ opacity: 0 }, 500)
+            .easing(Easing.Quadratic.InOut)
+            .onUpdate((newOpacity) => {
+                buttonMaterial.opacity = newOpacity.opacity;
+                buttonMaterial.needsUpdate = true;
+            })
+            .onComplete(() => {
+                animationState[0]  = 'idle';
+            });
+        
+        screen1SlideNext = new Tween(screen.position)
+            .to({ x: -4 }, 500)
+            .easing(Easing.Quadratic.InOut)
+            .onComplete(() => {
+                animationState[1]  = 'idle';
+            });
+        
+        screen1SlidePrevious = new Tween(screen.position)
+            .to({ x: 4 }, 500)
+            .easing(Easing.Quadratic.InOut)
+            .onComplete(() => {
+                animationState[1]  = 'idle';
+            });
+
+        screen2Slide = new Tween(screen2.position)
+            .to({ x: 0 }, 500)
+            .easing(Easing.Quadratic.InOut)
+            .onComplete(() => {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                loadTexture(currentImageIndex, screen, () => {
+                    screen.position.x = 0
+                    screen2.position.x = 4
+                    screen3.position.x = -4
+                });
+                let nextIndex = (currentImageIndex + 1) % images.length;
+                let previousIndex = (currentImageIndex - 1 + images.length) % images.length;
+                loadTexture(nextIndex, screen2);
+                loadTexture(previousIndex, screen3);
+                console.log("loaded")
+                animationState[1]  = 'idle';
+            });
+
+        screen3Slide = new Tween(screen3.position)
+            .to({ x: 0 }, 500)
+            .easing(Easing.Quadratic.InOut)
+            .onComplete(() => {
+                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                loadTexture(currentImageIndex, screen, () => {
+                    screen.position.x = 0
+                    screen2.position.x = 4
+                    screen3.position.x = -4
+                });
+                let nextIndex = (currentImageIndex + 1) % images.length;
+                let previousIndex = (currentImageIndex - 1 + images.length) % images.length;
+                loadTexture(nextIndex, screen2);
+                loadTexture(previousIndex, screen3);
+                console.log("loaded")
+                animationState[1] = 'idle';
+            });
+    }
+
+    function startOpacityTween(state) {
+        let currentOpacity = buttonMaterial.opacity;
+        hoverTweenButtonOpacity = new Tween({ opacity: currentOpacity })
+            .to({ opacity: allowSlidingImages ? 0.25 : 0 }, 500)
+            .easing(Easing.Quadratic.In)
+            .onUpdate((newOpacity) => {
+                buttonMaterial.opacity = newOpacity.opacity;
+                buttonMaterial.needsUpdate = true;
+            })
+            .onComplete(() => {
+                animationState[0]  = 'idle';
+            });
+        
+        leaveTweenButtonOpacity = new Tween({ opacity: currentOpacity })
+            .to({ opacity: 0 }, 500)
+            .easing(Easing.Quadratic.Out)
+            .onUpdate((newOpacity) => {
+                buttonMaterial.opacity = newOpacity.opacity;
+                buttonMaterial.needsUpdate = true;
+            })
+            .onComplete(() => {
+                animationState[0]  = 'idle';
+            });
+        if (state == "hovering") hoverTweenButtonOpacity.start()
+        else if (state == "leaving") leaveTweenButtonOpacity.start()
     }
 
     createTweens();
 
     // Tween animations
     function onHover() {
-        animationState = 'hovering';
         leaveTweenPosition.stop();
+        leaveTweenButtonOpacity.stop();
+        animationState[0] = 'hovering';
         hoverTweenPosition.start();
+        startOpacityTween(animationState[0])
     }
       
     function onLeave() {
-        animationState = 'leaving';
         hoverTweenPosition.stop();
+        hoverTweenButtonOpacity.stop();
+        animationState[0] = 'leaving';
         leaveTweenPosition.start();
+        startOpacityTween(animationState[0])
+    }
+
+    function slideImages(direction) {
+        if (animationState[1] === 'sliding') {
+            return
+        };
+        animationState[1] = 'sliding';
+        if (direction === 'next') {
+            screen1SlideNext.start();
+            screen2Slide.start()
+        } else if (direction === 'previous') {
+            screen1SlidePrevious.start();
+            screen3Slide.start()
+        } else {
+            console.error(`Container with ID ${containerId} not found.`);
+            return;
+        }
     }
 
     container.addEventListener('mouseenter', onHover);
@@ -153,10 +380,16 @@ function initializeScene(containerId, imageUrl) {
     // Render loop
     function animate() {
         requestAnimationFrame(animate);
-        if (animationState != 'idle') {
+        if (animationState[0] != 'idle' || animationState[1] != 'idle') {
             // console.log('rendering frames')
             if (hoverTweenPosition) hoverTweenPosition.update();
             if (leaveTweenPosition) leaveTweenPosition.update();
+            if (hoverTweenButtonOpacity) hoverTweenButtonOpacity.update();
+            if (leaveTweenButtonOpacity) leaveTweenButtonOpacity.update();
+            if (screen1SlideNext) screen1SlideNext.update();
+            if (screen1SlidePrevious) screen1SlidePrevious.update();
+            if (screen2Slide) screen2Slide.update();
+            if (screen3Slide) screen3Slide.update();
             camera.lookAt(new THREE.Vector3(0, 0, 0));
             composer.render();
         }
@@ -182,11 +415,38 @@ function initializeScene(containerId, imageUrl) {
     composer.setSize(width, height);
 }
 
+const project1Images = [
+    './assets/tunebox-screenshots/tunebox1.png',
+    './assets/tunebox-screenshots/tunebox2.png',
+    './assets/tunebox-screenshots/tunebox3.png',
+]
+
+const project2Images = [
+    './assets/connectfour-screenshots/connectfour1.png',
+    './assets/connectfour-screenshots/connectfour2.png',
+    './assets/connectfour-screenshots/connectfour3.png',
+    './assets/connectfour-screenshots/connectfour4.png'
+]
+
+const project3Images = [
+    './assets/chordtranslator.png'
+]
+
+const project4Images = [
+    './assets/docwait-screenshots/docwait1.png',
+    './assets/docwait-screenshots/docwait2.png',
+    './assets/docwait-screenshots/docwait3.png',
+    './assets/docwait-screenshots/docwait4.png',
+    './assets/docwait-screenshots/docwait5.png',
+    './assets/docwait-screenshots/docwait6.png',
+    
+]
+
 document.addEventListener('DOMContentLoaded', () => {
     // console.log('DOM fully loaded and parsed');
     // Initialize scenes for different containers with different images
-    initializeScene('threejs-background-1', './assets/tunebox.png');
-    initializeScene('threejs-background-2', './assets/connectfour.png');
-    initializeScene('threejs-background-3', './assets/chordtranslator.png');
-    initializeScene('threejs-background-4', './assets/docwait.png');
+    initializeScene('threejs-background-1', project1Images, true);
+    initializeScene('threejs-background-2', project2Images, true);
+    initializeScene('threejs-background-3', project3Images, false);
+    initializeScene('threejs-background-4', project4Images, true);
 });
