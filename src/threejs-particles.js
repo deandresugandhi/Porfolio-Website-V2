@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 10, 300);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight + 100);
+    
+    renderer.setSize(window.innerWidth + 50, window.innerHeight + 100);
     renderer.shadowMap.enabled = true; // Enable shadow maps
     renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Use soft shadows
     renderer.setPixelRatio(window.devicePixelRatio)
@@ -57,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add point light to simulate the sun
     const pointLight = new THREE.PointLight(0xffff00, 10, 0, 0); // Bright yellow light
-    pointLight.position.set(10, 15, 0); // Position the light at the same location as the sun
+    pointLight.position.set(7, 15, 0); // Position the light at the same location as the sun
     pointLight.castShadow = true; // Enable shadow casting for the point light
     // pointLight.shadow.mapSize.width = 512;
     // pointLight.shadow.mapSize.height = 512;
@@ -79,10 +80,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const sunMaterial = new THREE.MeshStandardMaterial({
         color: 0xffff00, // Yellow color
         emissive: 0xffff00, // Glowing effect
-        emissiveIntensity: 1 // Intensity of the glow
+        emissiveIntensity: 1.5 // Intensity of the glow
     });
     const sun = new THREE.Mesh(sunGeometry, sunMaterial);
-    sun.position.set(10, 15, 0); // Position the sun in the scene
+    sun.position.set(7, 15, 0); // Position the sun in the scene
     scene.add(sun);
 
     // Setup post-processing
@@ -156,12 +157,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle resizing
     const handleResize = () => {
-        if (!isMobile) {
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            composer.setSize(window.innerWidth, window.innerHeight);
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-        }
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        composer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
     };
     window.addEventListener('resize', handleResize);
 

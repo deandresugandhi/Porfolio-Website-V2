@@ -84,16 +84,33 @@ function initializeScene(containerId, images, allowSlidingImages) {
         }
         return new THREE.ShapeGeometry(shape);
     }
+    function createBoundingBox() {
+        const geometry = new THREE.PlaneGeometry(.5, 1); // 5x5 square
+        const material = new THREE.MeshBasicMaterial({ 
+            color: 0x00ff00, 
+            transparent: true, 
+            opacity: 0 ,
+
+        });
+        const square = new THREE.Mesh(geometry, material);
+        return square;
+    }
     const leftArrowGeometry = createTriangleGeometry('left');
     const rightArrowGeometry = createTriangleGeometry('right');
     let buttonMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0 });
     const leftButton = new THREE.Mesh(leftArrowGeometry, buttonMaterial);
-    leftButton.scale.set(0.15, 0.15, 0.1)
+    leftButton.scale.set(0.15, 0.15, 0.1);
     leftButton.position.set(-1.6, 0, 0.11); // Position on the left side of the screen
+    const leftButtonBoundingBox = createBoundingBox();
+    leftButtonBoundingBox.position.set(-1.6, 0, 0.10);
+    monitorGroup.add(leftButtonBoundingBox);
     monitorGroup.add(leftButton);
     const rightButton = new THREE.Mesh(rightArrowGeometry, buttonMaterial);
     rightButton.scale.set(0.15, 0.15, 0.1)
     rightButton.position.set(1.6, 0, 0.11); // Position on the right side of the screen
+    const rightButtonBoundingBox = createBoundingBox();
+    rightButtonBoundingBox.position.set(1.6, 0, 0.10);
+    monitorGroup.add(rightButtonBoundingBox);
     monitorGroup.add(rightButton);
 
     // Frame
@@ -167,13 +184,13 @@ function initializeScene(containerId, images, allowSlidingImages) {
         raycaster.setFromCamera(mouse, camera);
 
         // Check for intersections
-        const intersects = raycaster.intersectObjects([leftButton, rightButton]); // Add your buttons here
+        const intersects = raycaster.intersectObjects([leftButtonBoundingBox, rightButtonBoundingBox]); // Add your buttons here
 
         if (intersects.length > 0) {
             const object = intersects[0].object;
-            if (object === leftButton) {
+            if (object === leftButtonBoundingBox) {
                 slideImages('previous')
-            } else if (object === rightButton) {
+            } else if (object === rightButtonBoundingBox) {
                 slideImages('next');
             }
         }
@@ -191,7 +208,7 @@ function initializeScene(containerId, images, allowSlidingImages) {
         raycaster.setFromCamera(mouse, camera);
 
         // Check for intersections
-        const intersects = raycaster.intersectObjects([leftButton, rightButton]); // Add your buttons here
+        const intersects = raycaster.intersectObjects([leftButtonBoundingBox, rightButtonBoundingBox]); // Add your buttons here
 
         if (intersects.length > 0) {
             document.body.style.cursor = 'pointer';
