@@ -157,10 +157,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle resizing
     const handleResize = () => {
+        if (!isMobile) {
         renderer.setSize(window.innerWidth, window.innerHeight);
         composer.setSize(window.innerWidth, window.innerHeight);
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
+       }
     };
     window.addEventListener('resize', handleResize);
 
